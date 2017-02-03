@@ -1,0 +1,11 @@
+{
+  "name": "babel-plugin-transform-config-environment-variable",
+  "version": "0.0.1",
+  "description": "Transform PARKING_ENV environment variable with current env configuration.",
+  "author": "String.AI",
+  "main": "index.js",
+  "dependencies": { },
+  "devDependencies": {
+    "config": "github:string-ai/parking-config"
+  }
+}
