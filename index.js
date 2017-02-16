@@ -1,6 +1,6 @@
 "use strict";
 
-var loadEnv = require('config').loadEnv;
+var loadEnv = require('config/dist/index').loadEnv;
 var configValues = null;
 
 function getEnv() {
