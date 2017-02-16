@@ -1,11 +1,12 @@
 "use strict";
 
+var loadEnv = require('config').loadEnv;
 var configValues = null;
+
 function getEnv() {
-  if (!configValues) {
-    configValues = require('config').default();
-  }
-  return configValues.env;
+  var env = loadEnv();
+  console.log('babel plugin getEnv() -> env: ', env);
+  return env;
 }
 
 module.exports = function({ types: t }) {
@@ -14,11 +15,12 @@ module.exports = function({ types: t }) {
     visitor: {
       MemberExpression(path) {
         if (path.get("object").matchesPattern("process.env")) {
+          console.log('babel plugin process.env found ... ');
           var key = path.toComputedKey();
           if (t.isStringLiteral(key) && key.value === 'PARKING_ENV') {
             try{
               var env = getEnv();
-              console.log('replacing process.env.PARKING_ENV with -> ' + env);
+              console.log('[babel-plugin- transform-config-environment-variable] - replacing process.env.PARKING_ENV with -> ' + env);
               path.replaceWith(t.valueToNode(env));
             } catch(e) {
               console.log('error invoking getEnv() - error: ', e);
