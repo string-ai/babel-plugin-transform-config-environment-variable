@@ -15,7 +15,6 @@ module.exports = function({ types: t }) {
     visitor: {
       MemberExpression(path) {
         if (path.get("object").matchesPattern("process.env")) {
-          console.log('babel plugin process.env found ... ');
           var key = path.toComputedKey();
           if (t.isStringLiteral(key) && key.value === 'PARKING_ENV') {
             try{
